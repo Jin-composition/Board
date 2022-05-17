@@ -1,3 +1,4 @@
-.tdTr{
-  margin-top: 1rem;
+.tdTitle:hover{
+  background-color: #eceaea;
+  cursor: pointer;
 }
