@@ -1,0 +1,8 @@
+a {
+  text-decoration: none;
+}
+
+.tdTitle:hover{
+  background-color: #eceaea;
+  cursor: pointer;
+}
