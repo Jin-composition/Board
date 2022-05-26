@@ -1,17 +1,17 @@
 import React from 'react';
-import './Tr.css';
+import './Tr';
 import Td from './Td';
 
 const Tr = ({ info }) => {
-    return (
-        <tbody>
-            {info.map((el) => {
-                return (
-                    <Td key={el.id} item={el} />
-                )
-            })}
-        </tbody>
-    );
+  return (
+    <tbody>
+      {info.map((el) => {
+        return (
+          <Td key={el.board_idx} item={el} />
+        )
+      })}
+    </tbody>
+  );
 
 };
 

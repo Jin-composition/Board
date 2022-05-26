@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './Board.css';
-import axios from 'axios';
+import AddBoard from './AddBoard';
 import Tr from './Tr';
 
-const Board = () => {
-  const [info, setInfo] = useState([]);
 
-  useEffect(() => {
-    axios.get(`https://jsonplaceholder.typicode.com/users`)
-      .then(res => setInfo(res.data))
-      .catch(err => console.log(err))
-  }, [])
+const Board = ({info, onSaveData}) => {
+ 
+
+  
 
   return (
     <>
       <div>
-      <h2 align="center">게시판</h2>
+        <h2 align="center">게시판</h2>
         <table className="board">
           <thead>
             <tr>
@@ -26,10 +23,10 @@ const Board = () => {
               <th>조회수</th>
             </tr>
           </thead>
-          <Tr info={info} />
+          <Tr info={info}/>        
         </table>
       </div>
-
+      <AddBoard info={info} onSaveData={onSaveData} />
 
     </>
   );
