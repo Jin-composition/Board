@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Board.css';
 import AddBoard from './AddBoard';
-import Tr from './Tr';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 
-const Board = ({info, onSaveData}) => {
+const Board = ({info, handleSave}) => {
  
 
-  
 
   return (
     <>
@@ -21,13 +21,29 @@ const Board = ({info, onSaveData}) => {
               <th>작성자</th>
               <th>작성일</th>
               <th>조회수</th>
+              <th>수정</th>
+              <th>삭제</th>
             </tr>
           </thead>
-          <Tr info={info}/>        
+          <tbody>
+            {info.map((el, id) => {
+              return (
+                <tr key={id} className='tdTr'>
+                  <td className='tdTitle'>{el.board_idx}</td>
+                  <Link to={`/postView/${el.board_idx}`}>{el.title}</Link>
+                  <td>{el.username}</td>
+                  <td>{moment(el.reg_date).format('YYYY.MM.DD HH:mm:ss')}</td>
+                  <td>{el.views}</td>
+                  <td>수정</td>
+                  <td>삭제</td>
+                  {/* <td>{item.update_date}</td> */}
+                </tr>  
+              )
+            })}
+          </tbody>    
         </table>
       </div>
-      <AddBoard info={info} onSaveData={onSaveData} />
-
+      <AddBoard info={info} handleSave={handleSave} />
     </>
   );
 

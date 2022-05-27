@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
 import './AddBoard.css';
 
-const AddBoard = ({info, onSaveData}) => {
+const AddBoard = ({info, handleSave}) => {
 
-  const num = info
-  console.log(info.length)
+  const length = info.length
+
   const [inputs, setInputs] = useState({
-    board_idx: 3,
+    board_idx: length,
     title:'',
     username: '',
     content:'',
@@ -25,10 +25,10 @@ const AddBoard = ({info, onSaveData}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSaveData(inputs);
-    console.log(inputs);
+    handleSave(inputs);
+
     setInputs({
-      board_idx: inputs.board_idx+1,
+      board_idx:length+1,
       title: '',
       username: '',
       content: '',
@@ -52,8 +52,6 @@ const AddBoard = ({info, onSaveData}) => {
   //   })
   // }
 
-  //  defaultValue={form.title}
- 
   return (
     <>
       <div className='form_box'>
