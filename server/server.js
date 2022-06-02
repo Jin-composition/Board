@@ -6,6 +6,10 @@ const ip = 'localhost';
 const index = require('./Router/index')
 const multer = require('multer');
 const upload = multer({dest : './upload'});
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const corsOptions = {
 	origin: 'http://localhost:8000',
