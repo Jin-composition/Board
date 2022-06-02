@@ -6,6 +6,7 @@ import './FileInput.css';
 function FileInput({ className = '', name, value, initialPreview, onChange }) {
   const [preview, setPreview] = useState(initialPreview);
   const inputRef = useRef();
+
   const handleChange = (e) => {
     const nextValue = e.target.files[0];
     onChange(name, nextValue);

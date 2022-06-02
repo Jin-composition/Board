@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './Board.css';
 import AddBoard from './AddBoard';
-import ReviewForm from './ReviewForm';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
@@ -73,7 +72,6 @@ const Board = ({info, handleSave, handleDelete}) => {
         </table>
       </div>
       <AddBoard info={info} handleSave={handleSave} />
-    {/* <ReviewForm /> */}
     </>
   );
 

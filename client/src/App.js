@@ -11,7 +11,6 @@ function App() {
   const [index, setIndex] = useState(1);
 
   
-
   const handleSave = (data) => {
     setIndex(index+1);
     setInfo((prev) => {
@@ -20,7 +19,7 @@ function App() {
         title: data.title,
         username: data.username,
         content:data.content,
-        views: data.views,       
+        imgFile: data.imgFile       
       }
     ]})
   }
