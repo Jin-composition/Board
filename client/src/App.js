@@ -63,7 +63,7 @@ function App() {
     handleSave(item)
     const params = new URLSearchParams(); 
    params.append('data', 'data!!')
-    axios.post('/api/modify/')
+    axios.post('/api/update')
     .then((res) => {
 
       console.log(res)
@@ -103,7 +103,7 @@ function App() {
     
     handleSave(inputs);
   
-    axios.post('/api/post', inputs)
+    axios.post('/api/board', inputs)
     .then((res) => {
       //console.log(res)
     })
@@ -123,7 +123,7 @@ function App() {
  
 
   useEffect(() => {
-    axios.get('/api/post/')
+    axios.get('/api/board')
       .then(res => setInfo(res.data))
       .catch(err => console.log(err))
   }, [])

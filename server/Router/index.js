@@ -4,7 +4,7 @@ const db = require('../config/db');
 
 
 
-router.get('/post', (req, res) => {
+router.get('/board', (req, res) => {
   const sql = 'SELECT * FROM Board';
 
   db.query(sql, (err, result) => {
@@ -24,7 +24,7 @@ router.get('/detail/:id', (req, res) => {
 });
 
 
-router.post('/modify', (req, res) => {
+router.post('/update', (req, res) => {
   console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
    console.log(req.body)
   
@@ -47,7 +47,7 @@ router.post('/modify', (req, res) => {
   // res.send('update 연결');
 })
 
-router.post('/post', (req, res) => {
+router.post('/board', (req, res) => {
   console.log("=======================================")
   console.log(req.body)
   
