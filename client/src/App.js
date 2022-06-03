@@ -23,7 +23,6 @@ function App() {
     if(data.board_idx){ //수정 데이터에는 id가 존재
       setInfo(
         info.map(row => data.board_idx == row.board_idx ? {
-          
           board_idx: data.board_idx,
           title:data.title,
           username: data.username,
@@ -58,9 +57,26 @@ function App() {
     setSelected(selectedData)
   }
 
+  //수정된 데이터를 item으로 받아 기존 데이터 추가하기의 handleSave함수를 이용해 조건부 렌더링
   const handleEditSubmit = (item) => {
     console.log(item);
     handleSave(item)
+    const params = new URLSearchParams(); 
+   params.append('data', 'data!!')
+    axios.post('/api/modify/')
+    .then((res) => {
+
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log("onSubmitEdit-err "+err)   
+    })
+    // setInputs({
+    //   board_idx: 0,
+    //   title: '',
+    //   username: '',
+    //   content: '',
+    // })
   }
 
   const handleDelete = (id) => {
@@ -118,7 +134,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Board info={info} inputs={inputs} handleDelete={handleDelete} handleInputChange={handleInputChange} handleSubmit={handleSubmit}/>} />
         <Route exact path="/detail/:id" element={<Detail info={info} />} />
-        <Route exact path="/update/:id" element={<UpdateBoard info={info} selected={selected} handleInputChange={handleInputChange} handleEdit={handleEdit} handleEditSubmit={handleEditSubmit}/>} />
+        <Route exact path="/update/:id" element={<UpdateBoard info={info} selected={selected} handleEdit={handleEdit} handleEditSubmit={handleEditSubmit}/>} />
       </Routes>      
       </BrowserRouter>
     </div>

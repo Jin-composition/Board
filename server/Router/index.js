@@ -23,6 +23,30 @@ router.get('/detail/:id', (req, res) => {
   })
 });
 
+
+router.post('/modify', (req, res) => {
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+   console.log(req.body)
+  
+  // const sql = 'UPDATE BOARD SET title = ?, content = ?, username = ?) WHERE board_idx = ?';
+  // const delete_idx = req.body.num;
+  // const board_idx = req.body.board_idx;
+  // const title = req.body.title;
+  // const username = req.body.username;
+  // const content = req.body.content;
+  // const views = req.body.views;
+  // const params = [board_idx, title, username, content, views];
+
+  // // const params = [delete_idx]
+  // //////추가 내용/////
+  // db.query(sql, params, (err, result) => {
+  //   console.log(result);
+  //   if(!err) res.send(result);
+  //   else res.send(err);
+  // })
+  // res.send('update 연결');
+})
+
 router.post('/post', (req, res) => {
   console.log("=======================================")
   console.log(req.body)
@@ -45,7 +69,7 @@ router.post('/post', (req, res) => {
 })
 
 router.delete('/post/:id', (req, res) => {
-  console.log("=======================================")
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
   console.log(req.body.num)
   
   const sql = 'DELETE FROM Board WHERE board_idx = ?';
@@ -62,19 +86,6 @@ router.delete('/post/:id', (req, res) => {
 
 
 
-// router.post('/post', upload.single('image'), (req, res) => {
-// 	const sql = 'INSERT INTO Board VALUES (null, ?, ?, ?, ?)';
-
-//   const {board_idx, title, reg_rdate, update_date} = req.body;
-  
-// 	connection.query(sql, params, (err, result) => {
-// 		if (!err) {
-// 			res.send(result)
-// 		} else {
-// 			res.send(err)
-// 		}
-// 	})
-// });
 
 
 module.exports = router;

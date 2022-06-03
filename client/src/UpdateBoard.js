@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import FileInput from './FileInput';
 
-const UpdateBoard = ({info, selected, onUpdate, handleInputChange, handleEdit, handleEditSubmit}) => {
+const UpdateBoard = ({info, selected, handleEdit, handleEditSubmit}) => {
   const { id } = useParams();
   const [dummyData] = info.filter((el) => el.board_idx == id)
   const navigate = useNavigate();
@@ -20,21 +20,41 @@ const UpdateBoard = ({info, selected, onUpdate, handleInputChange, handleEdit, h
     content:dummyData.content,
   });
 
+  //해당 user의 데이터를 가져오기 위한 함수
   const onEdit = () => {
     handleEdit(dummyData)
   }
   
- const onEditChange = (e) => {
-   setEdited({
-     ...edited,
-     board_idx: dummyData.board_idx,
-     [e.target.name]: e.target.value
-   })
- }
+  //게시글이 수정된 값을 가져오기 위한 함수
+  const onEditChange = (e) => {
+    setEdited({
+      ...edited,
+      board_idx: dummyData.board_idx,
+      username: dummyData.username,
+      [e.target.name]: e.target.value,  
+    })
+  }
 
+  //수정된 데이터를 handleEditSubmit 함수에 넣어서 실행
  const onSubmitEdit = (e) => {
    e.preventDefault();
    handleEditSubmit(edited);
+  //  const params = new URLSearchParams(); 
+  //  params.append('data', 'data!!')
+  //  axios.post('/api/update', params)
+  //   .then((res) => {
+
+  //     console.log(res)
+  //   })
+  //   .catch((err) => {
+  //     console.log("onSubmitEdit-err "+err)   
+  //   })
+  //   setInputs({
+  //     board_idx: 0,
+  //     title: '',
+  //     username: '',
+  //     content: '',
+  //   })
  }
 
   return (
