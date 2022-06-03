@@ -10,7 +10,7 @@ import UpdateBoard from './UpdateBoard';
 function App() {
   const [info, setInfo] = useState([]);
   const [index, setIndex] = useState(1);
-
+  const [selected, setSelected] = useState('');
   const [inputs, setInputs] = useState({
     board_idx: 0,
     title:'',
@@ -19,18 +19,49 @@ function App() {
   });
   
   const handleSave = (data) => {
-    setIndex(index+1);
-    setInfo((prev) => {
-      return [...prev, {
-        board_idx: index,
-        title: data.title,
-        username: data.username,
-        content:data.content,
-        imgFile: data.imgFile       
-      }
-    ]})
+    console.log(data)
+    if(data.board_idx){ //수정 데이터에는 id가 존재
+      setInfo(
+        info.map(row => data.board_idx == row.board_idx ? {
+          
+          board_idx: data.board_idx,
+          title:data.title,
+          username: data.username,
+          content:data.content,
+        } : row)
+      )
+    }else{
+      setIndex(index+1);
+      setInfo((prev) => {
+        return [...prev, {
+          board_idx: index,
+          title: data.title,
+          username: data.username,
+          content:data.content,
+          imgFile: data.imgFile       
+        }
+      ]})
+    }
   }
+
+  const nextId = useRef(1);
   
+  const handleEdit = (item) => {
+    const selectedData = {
+      board_idx: item.board_idx,
+      title: item.title,
+      username: item.username,
+      content:item.content,
+      imgFile: item.imgFile  
+    }
+    console.log(selectedData)
+    setSelected(selectedData)
+  }
+
+  const handleEditSubmit = (item) => {
+    console.log(item);
+    handleSave(item)
+  }
 
   const handleDelete = (id) => {
     //console.log(id)
@@ -73,6 +104,7 @@ function App() {
     e.target.reset();
   }
   
+ 
 
   useEffect(() => {
     axios.get('/api/post/')
@@ -86,7 +118,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Board info={info} inputs={inputs} handleDelete={handleDelete} handleInputChange={handleInputChange} handleSubmit={handleSubmit}/>} />
         <Route exact path="/detail/:id" element={<Detail info={info} />} />
-        <Route exact path="/update/:id" element={<UpdateBoard info={info} handleInputChange={handleInputChange} />} />
+        <Route exact path="/update/:id" element={<UpdateBoard info={info} selected={selected} handleInputChange={handleInputChange} handleEdit={handleEdit} handleEditSubmit={handleEditSubmit}/>} />
       </Routes>      
       </BrowserRouter>
     </div>

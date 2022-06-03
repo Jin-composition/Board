@@ -6,11 +6,12 @@ import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import FileInput from './FileInput';
 
-const UpdateBoard = ({info, onUpdate, handleInputChange}) => {
+const UpdateBoard = ({info, selected, onUpdate, handleInputChange, handleEdit, handleEditSubmit}) => {
   const { id } = useParams();
   const [dummyData] = info.filter((el) => el.board_idx == id)
   const navigate = useNavigate();
-  console.log(dummyData) 
+  //console.log(dummyData) 
+  const [edited, setEdited] = useState(selected);
   
   const [inputs, setInputs] = useState({
     board_idx: dummyData.board_idx,
@@ -19,30 +20,41 @@ const UpdateBoard = ({info, onUpdate, handleInputChange}) => {
     content:dummyData.content,
   });
 
+  const onEdit = () => {
+    handleEdit(dummyData)
+  }
   
- 
+ const onEditChange = (e) => {
+   setEdited({
+     ...edited,
+     board_idx: dummyData.board_idx,
+     [e.target.name]: e.target.value
+   })
+ }
+
+ const onSubmitEdit = (e) => {
+   e.preventDefault();
+   handleEditSubmit(edited);
+ }
+
   return (
     <>
     <UpdateTitle />
     <div className='form_box'>
-        <form onSubmit={(e) => {
-          const title = e.target.title.value;
-          const content = e.target.content.value;
-          onUpdate(title, content);
-        }}>
+        <form onSubmit={onSubmitEdit}>
           <FileInput  name="imgFile" value={inputs.imgFile} />
           <label>
-            <input type="text" className="title_input" placeholder='제목을 입력해주세요' onChange={handleInputChange} name='title' defaultValue={dummyData.title} ></input>
+            <input type="text" className="title_input" placeholder='제목을 입력해주세요' onChange={onEditChange} name='title' defaultValue={dummyData.title} ></input>
           </label>
           <br />
           <label>
-            <input type="text" className="name_input" placeholder='이름을 입력해주세요' onChange={handleInputChange} name='username' defaultValue={inputs.username} ></input>
+            <input type="text" className="name_input" placeholder='이름을 입력해주세요' onChange={onEditChange} name='username' defaultValue={inputs.username} ></input>
           </label>
           <label>
-            <textarea className='content_input' placeholder='내용을 입력해주세요' onChange={handleInputChange} name='content' defaultValue={inputs.content} ></textarea>
+            <textarea className='content_input' placeholder='내용을 입력해주세요' onChange={onEditChange} name='content' defaultValue={inputs.content} ></textarea>
           </label>
           <br />
-          <button className="write_button">게시</button>
+          <button className="write_button" onClick={onEdit}>수정하기</button>
         </form>
       </div>
     
