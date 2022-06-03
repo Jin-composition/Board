@@ -4,12 +4,19 @@ import axios from 'axios';
 import './App.css';
 import Board from './Board';
 import Detail from './Detail';
+import UpdateBoard from './UpdateBoard';
 
 
 function App() {
   const [info, setInfo] = useState([]);
   const [index, setIndex] = useState(1);
 
+  const [inputs, setInputs] = useState({
+    board_idx: 0,
+    title:'',
+    username: '',
+    content:'',
+  });
   
   const handleSave = (data) => {
     setIndex(index+1);
@@ -31,14 +38,41 @@ function App() {
     //console.log(info)
 
   }
-  // const handleEdit = (item) => {
-  //   const selectedData = {
-  //     board_idx: info.length+1,
-  //     title: data.title,
-  //     username: data.username,
-  //   }
-  // }
 
+  const handleChange = (name, value) => {
+    setInputs((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    handleChange(name, value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    handleSave(inputs);
+  
+    axios.post('/api/post', inputs)
+    .then((res) => {
+      //console.log(res)
+    })
+    .catch((err) => {
+      console.log("client-err"+err)   
+    })
+    setInputs({
+      board_idx: 0,
+      title: '',
+      username: '',
+      content: '',
+    })
+    
+    e.target.reset();
+  }
+  
 
   useEffect(() => {
     axios.get('/api/post/')
@@ -50,8 +84,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Board info={info} handleSave={handleSave} handleDelete={handleDelete}/>} />
+        <Route exact path="/" element={<Board info={info} inputs={inputs} handleDelete={handleDelete} handleInputChange={handleInputChange} handleSubmit={handleSubmit}/>} />
         <Route exact path="/detail/:id" element={<Detail info={info} />} />
+        <Route exact path="/update/:id" element={<UpdateBoard info={info} handleInputChange={handleInputChange} />} />
       </Routes>      
       </BrowserRouter>
     </div>

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import './Detail.css';
 import moment from 'moment';
 
-function Detail({info, click}) {
+function Detail({info}) {
   const navigate = useNavigate();
   const { id } = useParams();
 

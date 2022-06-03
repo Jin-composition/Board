@@ -4,20 +4,12 @@ import AddBoard from './AddBoard';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
+import CreateTitle from './CreateTitle';
 
 
-const Board = ({info, handleSave, handleDelete}) => {
+const Board = ({info, inputs, handleDelete, handleInputChange, handleSubmit}) => {
+
  
-  // const [click, setClick] = useState(0);
-
-  // const handleClick = () => {
-  //   setClick(info[0].views + 1);
-  // }
-
-
-  //console.log(click)
- 
-
   const onDelete = async (e) => {
     //console.log(e.target.id)
     if(window.confirm('정말 삭제 하시겠습니까?')){
@@ -36,6 +28,7 @@ const Board = ({info, handleSave, handleDelete}) => {
       alert('취소합니다')
     }
   }
+
   
   return (
     <>
@@ -61,17 +54,17 @@ const Board = ({info, handleSave, handleDelete}) => {
                   <Link to={`/detail/${el.board_idx}`}>{el.title}</Link>
                   <td>{el.username}</td>
                   <td>{moment(el.reg_date).format('YYYY.MM.DD HH:mm:ss')}</td>
-                  <td><input type='button' value='수정' /></td>
+                  <Link to={`/update/${el.board_idx}`}><button>수정</button></Link>
                   <td><input type='button' value='삭제' id={el.board_idx} onClick={onDelete} /></td>
-                  {/* <td onClick={onDelete} value={el.board_idx}>삭제</td> */}
-                  {/* <td>{item.update_date}</td> */}
+                  
                 </tr>  
               )
             })}
           </tbody>    
         </table>
       </div>
-      <AddBoard info={info} handleSave={handleSave} />
+      <CreateTitle />
+      <AddBoard inputs={inputs} handleInputChange={handleInputChange} handleSubmit={handleSubmit}/>
     </>
   );
 
