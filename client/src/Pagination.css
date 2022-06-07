@@ -1,0 +1,28 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin: 16px;
+  margin-bottom: 5%;
+}
+
+.btn {
+  border: none;
+  border-radius: 5px;
+  padding: 7px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.btn:hover {
+  background: gray;
+  cursor: pointer;
+  transform: translateY(-2px);
+}
+
+[disabled] {
+  background: white;
+  cursor: revert;
+  transform: revert;
+}

@@ -5,11 +5,14 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
 import CreateTitle from './CreateTitle';
+import Pagination from './Pagination';
 
 
 const Board = ({info, inputs, handleDelete, handleInputChange, handleSubmit}) => {
+  const [limit, setLimit] = useState(7);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
- 
   const onDelete = async (e) => {
     //console.log(e.target.id)
     if(window.confirm('정말 삭제 하시겠습니까?')){
@@ -34,6 +37,19 @@ const Board = ({info, inputs, handleDelete, handleInputChange, handleSubmit}) =>
     <>
       <div>
         <h2 align="center">게시판</h2>
+        <label>
+        페이지 당 표시할 게시물 수:&nbsp;
+        <select
+          type="number"
+          value={limit}
+          onChange={({ target: { value } }) => setLimit(Number(value))}
+        >
+          <option value="5">5</option>
+          <option value="7">7</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+        </select>
+      </label>
         <table className="board">
           <thead>
             <tr>
@@ -46,7 +62,7 @@ const Board = ({info, inputs, handleDelete, handleInputChange, handleSubmit}) =>
             </tr>
           </thead>
           <tbody>
-            {info.map((el, id) => {
+            {info.slice(offset, offset+limit).map((el, id) => {
               //console.log(el)
               return (
                 <tr key={id} className='tdTr'>
@@ -62,7 +78,9 @@ const Board = ({info, inputs, handleDelete, handleInputChange, handleSubmit}) =>
             })}
           </tbody>    
         </table>
+        
       </div>
+      <Pagination total={info.length} limit={limit} page={page} setPage={setPage}/>
       <CreateTitle />
       <AddBoard inputs={inputs} handleInputChange={handleInputChange} handleSubmit={handleSubmit}/>
     </>
