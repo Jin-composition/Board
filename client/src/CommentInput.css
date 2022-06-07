@@ -1,0 +1,21 @@
+.comment {
+  margin-top: 2%;
+  width:800px; 
+  margin: 0 auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.comment-form{
+  display: flex;
+}
+
+.comment-textarea{
+  margin-right: 3rem;
+  width: 100%;
+}
+
+.comment-button{
+  width: '50%';
+  height: '52px'; 
+}

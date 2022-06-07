@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from 'react';
-// import { MdAdd } from 'react-icons/md';
-//import './CommentInput.css';
+import axios from 'axios';
 
 
-const CommentInput = ({ onInsert }) => {
+const CommentInput = ({ handleSave, inputs }) => {
     const [value, setValue] = useState({
         name: '',
         content: ''
@@ -30,18 +29,22 @@ const CommentInput = ({ onInsert }) => {
     );
 
 
-    const onSubmit = useCallback(
-        e => {
-            onInsert(value.name, value.content);
-            setValue({
-                name: '',
-                content: ''
-            });
-
-            e.preventDefault();
-        },
-        [onInsert, value],
-    );
+    const onSubmit = (e) => {
+      e.preventDefault();
+      
+      handleSave(inputs);
+    
+      // axios.post('/api/comment', inputs)
+      // .then((res) => {
+      //   //console.log(res)
+      // })
+      // .catch((err) => {
+      //   console.log("client-err"+err)   
+      // })
+    
+      
+      e.target.reset();
+    }
 
     return (
         <form className="CommentInsert" onSubmit={onSubmit}>
@@ -54,10 +57,9 @@ const CommentInput = ({ onInsert }) => {
                 value={value.content}
                 onChange={onChangeContent}
             />
-            <button type="submit">
-                {/* <MdAdd /> */}
-            </button>
+            <button type="submit">게시</button>
         </form>
+        
     )
 }
 

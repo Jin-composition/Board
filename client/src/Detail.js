@@ -6,13 +6,11 @@ import moment from 'moment';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
 
-function Detail({info}) {
+function Detail({info, handleSave, inputs}) {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [comments, setComments] = useState([
-    { id: 1, name: 'Minjoo Park', content: 'I like it!', }
-  ]);
+  const [comments, setComments] = useState([]);
   
   const nextId = useRef(1);
 
@@ -44,7 +42,7 @@ function Detail({info}) {
           <>
             <div className="post-view-row">
               <label>게시글 번호</label>
-              <label>{ dummyData.board_idx }</label>
+              <label>{ dummyData['@ROWNUM:=@ROWNUM+1'] }</label>
             </div>
             <div className="post-view-row">
               <label>제목</label>
@@ -70,20 +68,16 @@ function Detail({info}) {
         ) : '해당 게시글을 찾을 수 없습니다.'
       }
     </div>
-    <CommentInput onInsert={onInsert} />
-    <div style={{ marginBottom: "4rem" }}>
-        {comments.map((comment) => {
+    {/* <CommentInput /> */}
+    <div>
+    <Comment handleSave={handleSave} inputs={inputs}/>
+        {comments.map((el, id) => {
           return (
-            <Comment
-              key={comment.id}
-              id={comment.id}
-              name={comment.name}
-              content={comment.content}
-            />
+            // <Comment key={id} name={el.name} content={el.content}/>
+            <li>{el}</li>
           )
         })}
       </div>
-      {/* <Comment /> */}
       <button className="post-view-go-list-btn" onClick={() => navigate(-1)}>목록으로 돌아가기</button>
   </>);
 }

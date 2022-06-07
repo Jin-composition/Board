@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import './AddBoard.css';
 import FileInput from './FileInput';
-import Comment from './Comment';
 
 
 const AddBoard = ({inputs,handleInputChange, handleSubmit}) => {
@@ -26,7 +25,6 @@ const AddBoard = ({inputs,handleInputChange, handleSubmit}) => {
           <button className="write_button">게시</button>
         </form>
       </div>
-      {/* <Comment /> */}
     </>
   )
 }

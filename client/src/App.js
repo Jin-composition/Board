@@ -135,7 +135,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Board info={info} inputs={inputs} handleDelete={handleDelete} handleInputChange={handleInputChange} handleSubmit={handleSubmit}/>} />
-        <Route exact path="/detail/:id" element={<Detail info={info} />} />
+        <Route exact path="/detail/:id" element={<Detail info={info} handleSave={handleSave}/>} inputs={inputs} />
         <Route exact path="/update/:id" element={<UpdateBoard info={info} selected={selected} handleEdit={handleEdit} handleEditSubmit={handleEditSubmit}/>} />
       </Routes>      
       </BrowserRouter>
