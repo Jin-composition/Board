@@ -63,20 +63,20 @@ function App() {
     handleSave(item)
     const params = new URLSearchParams(); 
    params.append('data', 'data!!')
-    axios.post('/api/update')
-    .then((res) => {
+    // axios.post('/api/update')
+    // .then((res) => {
 
-      console.log(res)
-    })
-    .catch((err) => {
-      console.log("onSubmitEdit-err "+err)   
-    })
-    // setInputs({
-    //   board_idx: 0,
-    //   title: '',
-    //   username: '',
-    //   content: '',
+    //   console.log(res)
     // })
+    // .catch((err) => {
+    //   console.log("onSubmitEdit-err "+err)   
+    // })
+    // // setInputs({
+    // //   board_idx: 0,
+    // //   title: '',
+    // //   username: '',
+    // //   content: '',
+    // // })
   }
 
   const handleDelete = (id) => {
@@ -103,7 +103,7 @@ function App() {
     
     handleSave(inputs);
   
-    axios.post('/api/board', inputs)
+    axios.post('/api/post', inputs)
     .then((res) => {
       //console.log(res)
     })

@@ -24,30 +24,26 @@ router.get('/detail/:id', (req, res) => {
 });
 
 
-router.post('/update', (req, res) => {
+router.put('/update', (req, res) => {
   console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
    console.log(req.body)
   
-  // const sql = 'UPDATE BOARD SET title = ?, content = ?, username = ?) WHERE board_idx = ?';
-  // const delete_idx = req.body.num;
-  // const board_idx = req.body.board_idx;
-  // const title = req.body.title;
-  // const username = req.body.username;
-  // const content = req.body.content;
-  // const views = req.body.views;
-  // const params = [board_idx, title, username, content, views];
-
-  // // const params = [delete_idx]
-  // //////추가 내용/////
-  // db.query(sql, params, (err, result) => {
-  //   console.log(result);
-  //   if(!err) res.send(result);
-  //   else res.send(err);
-  // })
-  // res.send('update 연결');
+   const board_idx = req.body.board_idx;
+   const title = req.body.title;
+   const content = req.body.content;
+   const username = req.body.username;
+   const params = [title, username, content, board_idx];
+   const sql = 'UPDATE Board SET title = ?, username= ?, content = ? WHERE board_idx = ?';
+   //////추가 내용/////
+   db.query(sql, params, (err, result) => {
+    console.log(result);
+    if(!err) res.send(result);
+    else res.redirect('/');
+  })
+  //res.send('update 연결');
 })
 
-router.post('/board', (req, res) => {
+router.post('/post', (req, res) => {
   console.log("=======================================")
   console.log(req.body)
   
