@@ -17,7 +17,8 @@ function App() {
     username: '',
     content:'',
   });
-  
+
+ 
   const handleSave = (data) => {
     console.log(data)
     if(data.board_idx){ //수정 데이터에는 id가 존재
@@ -43,7 +44,7 @@ function App() {
     }
   }
 
-  const nextId = useRef(1);
+
   
   const handleEdit = (item) => {
     const selectedData = {
@@ -61,8 +62,8 @@ function App() {
   const handleEditSubmit = (item) => {
     console.log(item);
     handleSave(item)
-    const params = new URLSearchParams(); 
-   params.append('data', 'data!!')
+  //   const params = new URLSearchParams(); 
+  //  params.append('data', 'data!!')
     // axios.post('/api/update')
     // .then((res) => {
 
@@ -122,10 +123,11 @@ function App() {
   
  
 
+
   useEffect(() => {
-    axios.get('/api/board')
-      .then(res => setInfo(res.data))
-      .catch(err => console.log(err))
+    const getBoard = axios.get('/api/board')
+    .then(res => setInfo(res.data))
+    .catch(err => console.log(err))
   }, [])
 
   return (

@@ -31,7 +31,7 @@ const UpdateBoard = ({info, selected, handleEdit, handleEditSubmit}) => {
     setEdited({
       ...edited,
       board_idx: dummyData.board_idx,
-      username: dummyData.username,
+      // username: dummyData.username,
       [e.target.name]: e.target.value,  
     })
   }

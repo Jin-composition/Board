@@ -8,6 +8,7 @@ import CreateTitle from './CreateTitle';
 import Pagination from './Pagination';
 
 
+
 const Board = ({info, inputs, handleDelete, handleInputChange, handleSubmit}) => {
   const [limit, setLimit] = useState(7);
   const [page, setPage] = useState(1);
@@ -23,8 +24,7 @@ const Board = ({info, inputs, handleDelete, handleInputChange, handleSubmit}) =>
         console.log(res)
       })
       .catch((err) => {
-        console.log("client-err"+err)
-        
+        console.log("client-err"+err) 
       })
       handleDelete(num)
     }else{
@@ -39,11 +39,7 @@ const Board = ({info, inputs, handleDelete, handleInputChange, handleSubmit}) =>
         <h2 align="center">게시판</h2>
         <label>
         페이지 당 표시할 게시물 수:&nbsp;
-        <select
-          type="number"
-          value={limit}
-          onChange={({ target: { value } }) => setLimit(Number(value))}
-        >
+        <select type="number" value={limit} onChange={({ target: { value } }) => setLimit(Number(value))}>
           <option value="5">5</option>
           <option value="7">7</option>
           <option value="10">10</option>
@@ -66,13 +62,12 @@ const Board = ({info, inputs, handleDelete, handleInputChange, handleSubmit}) =>
               //console.log(el)
               return (
                 <tr key={id} className='tdTr'>
-                  <td className='tdTitle'>{id+1}</td>
+                  <td className='tdTitle'>{el['@ROWNUM:=@ROWNUM+1']}</td>
                   <Link to={`/detail/${el.board_idx}`}>{el.title}</Link>
                   <td>{el.username}</td>
                   <td>{moment(el.reg_date).format('YYYY.MM.DD HH:mm:ss')}</td>
                   <Link to={`/update/${el.board_idx}`}><button>수정</button></Link>
-                  <td><input type='button' value='삭제' id={el.board_idx} onClick={onDelete} /></td>
-                  
+                  <td><input type='button' value='삭제' id={el.board_idx} onClick={onDelete} /></td>  
                 </tr>  
               )
             })}

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import axios from 'axios';
 import './AddBoard.css';
 import FileInput from './FileInput';
+import Comment from './Comment';
 
 
 const AddBoard = ({inputs,handleInputChange, handleSubmit}) => {
@@ -11,7 +11,7 @@ const AddBoard = ({inputs,handleInputChange, handleSubmit}) => {
     <>
       <div className='form_box'>
         <form onSubmit={handleSubmit}>
-          <FileInput  name="imgFile" value={inputs.imgFile} />
+          {/* <FileInput  name="imgFile" value={inputs.imgFile} /> */}
           <label>
             <input type="text" className="title_input" placeholder='제목을 입력해주세요' onChange={handleInputChange} name='title' defaultValue={inputs.title} ></input>
           </label>
@@ -26,6 +26,7 @@ const AddBoard = ({inputs,handleInputChange, handleSubmit}) => {
           <button className="write_button">게시</button>
         </form>
       </div>
+      {/* <Comment /> */}
     </>
   )
 }

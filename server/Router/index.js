@@ -5,7 +5,7 @@ const db = require('../config/db');
 
 
 router.get('/board', (req, res) => {
-  const sql = 'SELECT * FROM Board';
+  const sql = 'SELECT @ROWNUM:=@ROWNUM+1, rn.* FROM Board rn, (SELECT @ROWNUM:=0) R;';
 
   db.query(sql, (err, result) => {
     if(!err) res.send(result);
