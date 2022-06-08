@@ -10,12 +10,19 @@
   display: flex;
 }
 
-.comment-textarea{
+.comment-title{
   margin-right: 1rem;
-  width: 100%;
+  width: 88%;
 }
 
+.comment-username{
+  margin-right: 1rem;
+  width: 15%;
+}
 .comment-button{
-  width: '50%';
-  height: '52px'; 
+  height: 50px; 
+}
+
+.renderComment {
+  margin-top: 5%;
 }

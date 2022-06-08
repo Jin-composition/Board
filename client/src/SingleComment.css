@@ -1,0 +1,18 @@
+.singleComment {
+  display: flex;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 2%;
+}
+
+.singleComment .singleComment-title {
+  flex-grow: 1;
+}
+
+.singleComment .singleComment-username {
+  font-size: 0.8rem;
+  margin-right: 1rem;
+  color: red;
+}

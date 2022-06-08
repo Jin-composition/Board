@@ -5,6 +5,7 @@ import './Detail.css';
 import moment from 'moment';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
+import SingleComment from './SingleComment';
 
 function Detail({info, handleSave, inputs}) {
   const navigate = useNavigate();
@@ -32,7 +33,11 @@ function Detail({info, handleSave, inputs}) {
 
   const [dummyData] = info.filter((el) => el.board_idx == id)
   //console.log(dummyData) 
-
+  // const renderComments = comments.map((el, id) => {
+  //   return (
+  //     <SingleComment key={id} comment={el}/>
+  //   )
+  // })
   return (<>
    <h2 align="center">게시글 상세정보</h2>
   
@@ -70,13 +75,15 @@ function Detail({info, handleSave, inputs}) {
     </div>
     {/* <CommentInput /> */}
     <div>
-    <Comment handleSave={handleSave} inputs={inputs}/>
-        {comments.map((el, id) => {
+      
+    <Comment handleSave={handleSave}/>
+    
+        {/* {comments.map((el, id) => {
           return (
             // <Comment key={id} name={el.name} content={el.content}/>
             <li>{el}</li>
-          )
-        })}
+            )
+          })} */}
       </div>
       <button className="post-view-go-list-btn" onClick={() => navigate(-1)}>목록으로 돌아가기</button>
   </>);
