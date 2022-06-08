@@ -1,8 +1,10 @@
 import React from 'react';
 import './SingleComment.css'
+import axios from 'axios';
 
 const SingleComment = ({comment}) => { 
-   console.log(comment)
+  console.log(comment)
+  
   return (
     <div className='singleComment'>
       <div className='singleComment-title'>{comment.title}</div>

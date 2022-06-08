@@ -21,7 +21,7 @@ const Board = ({info, inputs, handleDelete, handleInputChange, handleSubmit}) =>
       const num = Number(e.target.id)
       await axios.delete('/api/post/:id', {data: {num}})
       .then((res) => {
-        console.log(res)
+        //console.log(res)
       })
       .catch((err) => {
         console.log("client-err"+err) 

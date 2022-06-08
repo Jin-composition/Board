@@ -33,6 +33,7 @@
   font-size: 14px;
   width: 100%;
   height: 160px;
+  resize: none;
 }
 .write_button {
   background-color: #475d9f;

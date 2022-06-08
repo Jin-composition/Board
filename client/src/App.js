@@ -62,22 +62,6 @@ function App() {
   const handleEditSubmit = (item) => {
     console.log(item);
     handleSave(item)
-  //   const params = new URLSearchParams(); 
-  //  params.append('data', 'data!!')
-    // axios.post('/api/update')
-    // .then((res) => {
-
-    //   console.log(res)
-    // })
-    // .catch((err) => {
-    //   console.log("onSubmitEdit-err "+err)   
-    // })
-    // // setInputs({
-    // //   id: 0,
-    // //   title: '',
-    // //   username: '',
-    // //   content: '',
-    // // })
   }
 
   const handleDelete = (id) => {
@@ -99,18 +83,24 @@ function App() {
     handleChange(name, value);
   };
 
+
+  const apiPost = async() => {
+    await axios.post('/api/post', inputs)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log("client-err"+err)   
+    })
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     
     handleSave(inputs);
   
-    axios.post('/api/post', inputs)
-    .then((res) => {
-      //console.log(res)
-    })
-    .catch((err) => {
-      console.log("client-err"+err)   
-    })
+    apiPost();
+    
     setInputs({
       id: 0,
       title: '',
@@ -125,10 +115,10 @@ function App() {
 
 
   useEffect(() => {
-    const getBoard = axios.get('/api/board')
+    axios.get('/api/board')
     .then(res => setInfo(res.data))
     .catch(err => console.log(err))
-  }, [])
+  }, [inputs])
 
   return (
     <div className="App">

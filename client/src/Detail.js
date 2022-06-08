@@ -1,43 +1,36 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import './Detail.css';
 import moment from 'moment';
-import CommentInput from './CommentInput';
 import Comment from './Comment';
+import axios from 'axios';
 import SingleComment from './SingleComment';
 
-function Detail({info, handleSave, inputs}) {
+function Detail({info, handleSave}) {
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
-
-  const [comments, setComments] = useState([]);
-  
-  const nextId = useRef(1);
-
-  const onInsert = useCallback(
-    (name, content) => {
-      const comment = {
-        id: nextId.current,
-        name,
-        content
-      };
-      console.log(name);
-      console.log(content);
-      setComments(comments => comments.concat(comment));
-      nextId.current += 1; //nextId 1씩 더하기
-    },
-    [comments],
-  );
-
-
+  // const nextId = useRef(1);
   const [dummyData] = info.filter((el) => el.id == id)
-  //console.log(dummyData) 
-  // const renderComments = comments.map((el, id) => {
-  //   return (
-  //     <SingleComment key={id} comment={el}/>
-  //   )
-  // })
+  // console.log(id)
+
+  const apiDetail = () => {
+    axios.get('/api/detail/:id', {params:id})
+      .then((res) => {
+        console.log(res.data)
+        setData(res.data[0]);
+      })
+      .catch((err) => {
+        console.log('comment-err ' + err)
+      })
+  }
+
+  useEffect(() => {
+    apiDetail();
+  }, [])
+ 
+
   return (<>
    <h2 align="center">게시글 상세정보</h2>
   
@@ -45,27 +38,27 @@ function Detail({info, handleSave, inputs}) {
       {
         info ? (
           <>
-            <div className="post-view-row">
+            {/* <div className="post-view-row">
               <label>게시글 번호</label>
-              <label>{ dummyData['@ROWNUM:=@ROWNUM+1'] }</label>
-            </div>
+              <label>{ data['@ROWNUM:=@ROWNUM+1'] }</label>
+            </div> */}
             <div className="post-view-row">
               <label>제목</label>
-              <label>{ dummyData.title }</label>
+              <label>{ data.title }</label>
             </div>
             <div className="post-view-row">
               <label>작성자</label>
-              <label>{ dummyData.username }</label>
+              <label>{ data.username }</label>
             </div>
             <div className="post-view-row">
               <label>작성일</label>
-              <label>{ moment(dummyData.reg_date).format('YYYY.MM.DD HH:mm:ss') }</label>
+              <label>{ moment(data.reg_date).format('YYYY.MM.DD HH:mm:ss') }</label>
             </div>
             <div className="post-view-row">
               <label>내용</label>
               <div>
                 {
-                  dummyData.content
+                  data.content
                 }
               </div>
             </div>
@@ -78,12 +71,7 @@ function Detail({info, handleSave, inputs}) {
       
     <Comment handleSave={handleSave}/>
     
-        {/* {comments.map((el, id) => {
-          return (
-            // <Comment key={id} name={el.name} content={el.content}/>
-            <li>{el}</li>
-            )
-          })} */}
+
       </div>
       <button className="post-view-go-list-btn" onClick={() => navigate(-1)}>목록으로 돌아가기</button>
   </>);

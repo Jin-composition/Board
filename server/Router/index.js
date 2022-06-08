@@ -15,12 +15,17 @@ router.get('/board', (req, res) => {
 
 
 router.get('/detail/:id', (req, res) => {
-  const sql = 'SELECT * FROM Board';
+  console.log("*******************************")
+  console.log(req.query['0'])
 
-  db.query(sql, (err, result) => {
+  const id = req.query['0']
+  const sql = 'SELECT * FROM Board WHERE id = ?';
+
+  db.query(sql, id, (err, result) => {
     if(!err) res.send(result);
     else res.send(err);
   })
+
 });
 
 
@@ -28,12 +33,12 @@ router.put('/update', (req, res) => {
   console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
    console.log(req.body)
   
-   const board_idx = req.body.board_idx;
+   const id = req.body.id;
    const title = req.body.title;
    const content = req.body.content;
    const username = req.body.username;
-   const params = [title, username, content, board_idx];
-   const sql = 'UPDATE Board SET title = ?, username= ?, content = ? WHERE board_idx = ?';
+   const params = [id, title, username, content, id];
+   const sql = 'UPDATE Board SET title = ?, username= ?, content = ? WHERE id = ?';
    //////추가 내용/////
    db.query(sql, params, (err, result) => {
     console.log(result);
@@ -47,14 +52,13 @@ router.post('/post', (req, res) => {
   console.log("=======================================")
   console.log(req.body)
   
-  const sql = 'INSERT INTO Board (board_idx, title, username, content, views) VALUES (?, ?, ?, ?, ?)';
+  const sql = 'INSERT INTO Board (id, title, username, content) VALUES (?, ?, ?, ?)';
 
-  const board_idx = req.body.board_idx;
+  const id = req.body.id;
   const title = req.body.title;
   const username = req.body.username;
   const content = req.body.content;
-  const views = req.body.views;
-  const params = [board_idx, title, username, content, views];
+  const params = [id, title, username, content];
 
   //////추가 내용/////
   db.query(sql, params, (err, result) => {
@@ -68,7 +72,7 @@ router.delete('/post/:id', (req, res) => {
   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
   console.log(req.body.num)
   
-  const sql = 'DELETE FROM Board WHERE board_idx = ?';
+  const sql = 'DELETE FROM Board WHERE id = ?';
   const delete_idx = req.body.num;
   const params = [delete_idx]
   //////추가 내용/////
@@ -79,9 +83,39 @@ router.delete('/post/:id', (req, res) => {
   })
 })
 
+router.post('/comment', (req, res) => {
+  console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+  console.log(req.body)
+  
+  const sql = 'INSERT INTO Comment (id, title, username, cdepth) VALUES (?, ?, ?, 1)';
+
+  const id = req.body.id;
+  const title = req.body.title;
+  const username = req.body.username;
+  const cdepth = req.body.cdepth;
+  const params = [id, title, username, cdepth];
+
+  //////추가 내용/////
+  db.query(sql, params, (err, result) => {
+    console.log(result);
+    if(!err) res.send(result);
+    else res.send(err);
+  })
+})
 
 
+// router.get('/comment', (req, res) => {
+//   console.log("###################################")
+//   console.log(req.body)
 
+//   // const id = req.query['0']
+//   // const sql = 'SELECT * FROM Comment WHERE id = ?';
 
+//   // db.query(sql, id, (err, result) => {
+//   //   if(!err) res.send(result);
+//   //   else res.send(err);
+//   // })
+//   res.send('연결')
+// });
 
 module.exports = router;
