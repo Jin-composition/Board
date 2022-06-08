@@ -104,18 +104,18 @@ router.post('/comment', (req, res) => {
 })
 
 
-// router.get('/comment', (req, res) => {
-//   console.log("###################################")
-//   console.log(req.body)
+router.get('/comment', (req, res) => {
+  console.log("*******************************")
+  console.log(req.query['0'])
 
-//   // const id = req.query['0']
-//   // const sql = 'SELECT * FROM Comment WHERE id = ?';
+  const id = req.query['0']
+  const sql = 'SELECT * FROM Board AS b LEFT JOIN Comments AS c ON b.id = c.board_id WHERE b.id = ?';
 
-//   // db.query(sql, id, (err, result) => {
-//   //   if(!err) res.send(result);
-//   //   else res.send(err);
-//   // })
-//   res.send('연결')
-// });
+  db.query(sql, id, (err, result) => {
+    if(!err) res.send(result);
+    else res.send(err);
+  })
+  
 
+});
 module.exports = router;

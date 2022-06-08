@@ -4,33 +4,46 @@ import './Comment.css';
 import SingleComment from './SingleComment';
 
 
-function Comment() {
+function Comment({id}) {
 
   const [comment, setComment] = useState({
+    id: id,
     title: '',
     username: '',
     cdepth: 1
   })
   const [comments, setComments] = useState([]);
+  const [inputs, setInputs] = useState([]);
 
-  // const renderComments = comments.map((el, id) => {
-  //   return(
-  //     <SingleComment comment={el} key={id} />
-  //   )
-  // })
-
-
+  const getComment = () => axios.get('/api/comment', {params: id})
+  .then((res) => {
+    console.log(res.data)
+    setInputs(res.data)
+    console.log(inputs)
+  })
+  .catch((err) => {
+    console.log('comment-err ' + err)
+  })
 
   const addComment = (e) => {
     e.preventDefault();
     setComments((prev) => {
       return ([...prev, {
+        id: comment.id,
         title: comment.title,
         username: comment.username,
         cdepth: 1
       }]
     )})
 
+    axios.post('/api/comment', comment)
+    .then((res) => {
+      console.log(res)
+      setComment(res.data);
+    })
+    .catch((err) => {
+      console.log('comment-err ' + err)
+    })
     setComment({
       title: '',
       username: ''
@@ -50,16 +63,10 @@ function Comment() {
     handleChange(name, value);
   };
 
-  const apiComment = () => axios.post('/api/comment', comment)
-  .then((res) => {
-    setComment(res.data);
-  })
-  .catch((err) => {
-    console.log('comment-err ' + err)
-  })
+ 
 
   useEffect(() => {
-    apiComment();
+    getComment()
   },[])
 
 
@@ -86,7 +93,7 @@ function Comment() {
         </button>
       </form>
       <div className='renderComment'>
-        {comments.map((el, id) => {
+        {inputs.map((el, id) => {
           return(
             <SingleComment comment={el} key={id} />
           )

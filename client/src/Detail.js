@@ -69,7 +69,7 @@ function Detail({info, handleSave}) {
     {/* <CommentInput /> */}
     <div>
       
-    <Comment handleSave={handleSave}/>
+    <Comment id={id}/>
     
 
       </div>
