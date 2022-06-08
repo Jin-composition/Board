@@ -31,7 +31,7 @@ function Detail({info, handleSave, inputs}) {
   );
 
 
-  const [dummyData] = info.filter((el) => el.board_idx == id)
+  const [dummyData] = info.filter((el) => el.id == id)
   //console.log(dummyData) 
   // const renderComments = comments.map((el, id) => {
   //   return (

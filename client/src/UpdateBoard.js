@@ -8,13 +8,13 @@ import FileInput from './FileInput';
 
 const UpdateBoard = ({info, selected, handleEdit, handleEditSubmit}) => {
   const { id } = useParams();
-  const [dummyData] = info.filter((el) => el.board_idx == id)
+  const [dummyData] = info.filter((el) => el.id == id)
   const navigate = useNavigate();
   //console.log(dummyData) 
   const [edited, setEdited] = useState(selected);
   
   const [inputs, setInputs] = useState({
-    board_idx: dummyData.board_idx,
+    id: dummyData.id,
     title:dummyData.title,
     username: dummyData.username,
     content:dummyData.content,
@@ -30,7 +30,7 @@ const UpdateBoard = ({info, selected, handleEdit, handleEditSubmit}) => {
 
     setEdited({
       ...edited,
-      board_idx: dummyData.board_idx,
+      id: dummyData.id,
       // username: dummyData.username,
       [e.target.name]: e.target.value,  
     })
@@ -51,7 +51,7 @@ const UpdateBoard = ({info, selected, handleEdit, handleEditSubmit}) => {
       console.log("onSubmitEdit-err "+err)   
     })
     setInputs({
-      board_idx: 0,
+      id: 0,
       title: '',
       username: '',
       content: '',

@@ -12,7 +12,7 @@ function App() {
   const [index, setIndex] = useState(1);
   const [selected, setSelected] = useState('');
   const [inputs, setInputs] = useState({
-    board_idx: 0,
+    id: 0,
     title:'',
     username: '',
     content:'',
@@ -21,10 +21,10 @@ function App() {
  
   const handleSave = (data) => {
     console.log(data)
-    if(data.board_idx){ //수정 데이터에는 id가 존재
+    if(data.id){ //수정 데이터에는 id가 존재
       setInfo(
-        info.map(row => data.board_idx == row.board_idx ? {
-          board_idx: data.board_idx,
+        info.map(row => data.id == row.id ? {
+          id: data.id,
           title:data.title,
           username: data.username,
           content:data.content,
@@ -34,7 +34,7 @@ function App() {
       setIndex(index+1);
       setInfo((prev) => {
         return [...prev, {
-          board_idx: index,
+          id: index,
           title: data.title,
           username: data.username,
           content:data.content,
@@ -48,7 +48,7 @@ function App() {
   
   const handleEdit = (item) => {
     const selectedData = {
-      board_idx: item.board_idx,
+      id: item.id,
       title: item.title,
       username: item.username,
       content:item.content,
@@ -73,7 +73,7 @@ function App() {
     //   console.log("onSubmitEdit-err "+err)   
     // })
     // // setInputs({
-    // //   board_idx: 0,
+    // //   id: 0,
     // //   title: '',
     // //   username: '',
     // //   content: '',
@@ -82,7 +82,7 @@ function App() {
 
   const handleDelete = (id) => {
     //console.log(id)
-    setInfo(info => info.filter(el => el.board_idx !== id));
+    setInfo(info => info.filter(el => el.id !== id));
     //console.log(info)
 
   }
@@ -112,7 +112,7 @@ function App() {
       console.log("client-err"+err)   
     })
     setInputs({
-      board_idx: 0,
+      id: 0,
       title: '',
       username: '',
       content: '',
