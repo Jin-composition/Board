@@ -116,7 +116,9 @@ function App() {
 
   useEffect(() => {
     axios.get('/api/board')
-    .then(res => setInfo(res.data))
+    .then(res => {
+      setInfo(res.data)
+    })
     .catch(err => console.log(err))
   }, [inputs])
 

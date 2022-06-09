@@ -4,7 +4,8 @@ import './Comment.css';
 import SingleComment from './SingleComment';
 
 
-function Comment({id}) {
+function Comment({id, cdata}) {
+  console.log(cdata)
 
   const [comment, setComment] = useState({
     id: id,
@@ -13,30 +14,23 @@ function Comment({id}) {
     cdepth: 1
   })
   const [comments, setComments] = useState([]);
-  const [inputs, setInputs] = useState([]);
+  //const [cdata, setCdata] = useState([]);
 
-  const getComment = () => axios.get('/api/comment', {params: id})
-  .then((res) => {
-    console.log(res.data)
-    setInputs(res.data)
-    console.log(inputs)
-  })
-  .catch((err) => {
-    console.log('comment-err ' + err)
-  })
 
   const addComment = (e) => {
     e.preventDefault();
     setComments((prev) => {
       return ([...prev, {
         id: comment.id,
-        title: comment.title,
-        username: comment.username,
-        cdepth: 1
+        ctitle: comment.title,
+        cusername: comment.username,
+        cdepth: 1,
+        board_id: comment.id,
       }]
     )})
 
     axios.post('/api/comment', comment)
+    console.log(comment)
     .then((res) => {
       console.log(res)
       setComment(res.data);
@@ -64,9 +58,15 @@ function Comment({id}) {
   };
 
  
-
   useEffect(() => {
-    getComment()
+    // axios.get('/api/getcomment', {params: id})
+    // .then((res) => {
+    //   console.log(res.data)
+    //   setCdata(res.data)
+    // })
+    // .catch((err) => {
+    //   console.log('comment-err ' + err)
+    // })
   },[])
 
 
@@ -93,10 +93,27 @@ function Comment({id}) {
         </button>
       </form>
       <div className='renderComment'>
-        {inputs.map((el, id) => {
+        {/* {comments.map((el, id) => {
           return(
             <SingleComment comment={el} key={id} />
           )
+        })} */}
+        {/* {console.log('==========')}
+        {console.log(cdata)} */}
+        {/* <div className='singleComment'>
+            <div className='singleComment-title'>{cdata[0].ctitle}</div>
+            <div className='singleComment-username'>{cdata[0].cusername}</div>
+          </div>
+          <div className='singleComment'>
+            <div className='singleComment-title'>{cdata[1].ctitle}</div>
+            <div className='singleComment-username'>{cdata[1].cusername}</div>
+          </div> */}
+
+        {cdata.map((el) => {
+          <div className='singleComment'>
+            <div className='singleComment-title'>{el.ctitle}</div>
+            <div className='singleComment-username'>{el.cusername}</div>
+          </div>
         })}
       </div>
     </div>

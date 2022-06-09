@@ -5,20 +5,21 @@ import './Detail.css';
 import moment from 'moment';
 import Comment from './Comment';
 import axios from 'axios';
-import SingleComment from './SingleComment';
+import LoadingIndicator from './LoadingIndicator';
 
 function Detail({info, handleSave}) {
   const [data, setData] = useState([]);
+  const [cdata, setCdata] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
-  // const nextId = useRef(1);
   const [dummyData] = info.filter((el) => el.id == id)
+  const [isLoading, setIsLoading] = useState(false)
   // console.log(id)
 
-  const apiDetail = () => {
-    axios.get('/api/detail/:id', {params:id})
+  const apiDetail = async() => {
+    await axios.get('/api/detail/:id', {params:id})
       .then((res) => {
-        console.log(res.data)
+        //console.log(res.data)
         setData(res.data[0]);
       })
       .catch((err) => {
@@ -26,8 +27,20 @@ function Detail({info, handleSave}) {
       })
   }
 
+  const getComment = async() => {
+     await axios.get('/api/getcomment', {params: id})
+    .then((res) => {
+      //console.log(res.data)
+      setCdata(res.data)
+    })
+    .catch((err) => {
+      console.log('comment-err ' + err)
+    })
+  }
+
   useEffect(() => {
     apiDetail();
+    getComment()
   }, [])
  
 
@@ -36,7 +49,7 @@ function Detail({info, handleSave}) {
   
   <div className="post-view-wrapper">
       {
-        info ? (
+        data ? (
           <>
             {/* <div className="post-view-row">
               <label>게시글 번호</label>
@@ -66,13 +79,25 @@ function Detail({info, handleSave}) {
         ) : '해당 게시글을 찾을 수 없습니다.'
       }
     </div>
-    {/* <CommentInput /> */}
-    <div>
-      
-    <Comment id={id}/>
     
+    <Comment id={id} cdata={cdata}/>
+    {/* {isLoading ? <LoadingIndicator /> : <Comment id={id} cdata={cdata}/>} */}
+    {console.log(cdata)}
+    {cdata.length > 0 ? cdata.map((el) => (
+          <div className='singleComment'>
+            <div className='singleComment-title'>{el.ctitle}</div>
+            <div className='singleComment-username'>{el.cusername}</div>
+          </div>
+        )) : '해당 게시물엔 댓글이 없습니다.' }
+    {/* {cdata.map((el) => {
+          <div className='singleComment'>
+            <div className='singleComment-title'>{el.ctitle}</div>
+            <div className='singleComment-username'>{el.cusername}</div>
+          </div>
+        })} */}
 
-      </div>
+        <br />
+  
       <button className="post-view-go-list-btn" onClick={() => navigate(-1)}>목록으로 돌아가기</button>
   </>);
 }

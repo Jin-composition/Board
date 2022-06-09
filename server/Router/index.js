@@ -87,13 +87,13 @@ router.post('/comment', (req, res) => {
   console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
   console.log(req.body)
   
-  const sql = 'INSERT INTO Comment (id, title, username, cdepth) VALUES (?, ?, ?, 1)';
+  const sql = 'INSERT INTO Comments (id, ctitle, cusername, cdepth, board_id) VALUES (?, ?, ?, 1, ?)';
 
   const id = req.body.id;
-  const title = req.body.title;
-  const username = req.body.username;
+  const ctitle = req.body.ctitle;
+  const cusername = req.body.cusername;
   const cdepth = req.body.cdepth;
-  const params = [id, title, username, cdepth];
+  const params = [id, ctitle, cusername, cdepth];
 
   //////추가 내용/////
   db.query(sql, params, (err, result) => {
@@ -104,12 +104,12 @@ router.post('/comment', (req, res) => {
 })
 
 
-router.get('/comment', (req, res) => {
+router.get('/getcomment', (req, res) => {
   console.log("*******************************")
   console.log(req.query['0'])
 
   const id = req.query['0']
-  const sql = 'SELECT * FROM Board AS b LEFT JOIN Comments AS c ON b.id = c.board_id WHERE b.id = ?';
+  const sql = 'SELECT ctitle, cusername FROM Board AS b LEFT JOIN Comments AS c ON b.id = c.board_id WHERE b.id = ?';
 
   db.query(sql, id, (err, result) => {
     if(!err) res.send(result);
