@@ -87,13 +87,14 @@ router.post('/comment', (req, res) => {
   console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
   console.log(req.body)
   
-  const sql = 'INSERT INTO Comments (id, ctitle, cusername, cdepth, board_id) VALUES (?, ?, ?, 1, ?)';
+  const sql = 'INSERT INTO Comments (id, ctitle, cusername, cdepth, board_id) VALUES (?, ?, ?, ?, ?)';
 
   const id = req.body.id;
   const ctitle = req.body.ctitle;
   const cusername = req.body.cusername;
   const cdepth = req.body.cdepth;
-  const params = [id, ctitle, cusername, cdepth];
+  const board_id = req.body.board_id;
+  const params = [id, ctitle, cusername, cdepth, board_id];
 
   //////추가 내용/////
   db.query(sql, params, (err, result) => {

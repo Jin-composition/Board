@@ -4,34 +4,45 @@ import './Comment.css';
 import SingleComment from './SingleComment';
 
 
-function Comment({id, cdata}) {
-  console.log(cdata)
-
+function Comment({id}) {
+  const cid = id
+  const [cdata, setCdata] = useState([]);
   const [comment, setComment] = useState({
-    id: id,
-    title: '',
-    username: '',
-    cdepth: 1
+    id: 0,
+    ctitle: '',
+    cusername: '',
+    cdepth: 1,
+    board_id: cid,
   })
   const [comments, setComments] = useState([]);
-  //const [cdata, setCdata] = useState([]);
+  //console.log(comment)
 
+  const getComment = async() => {
+    await axios.get('/api/getcomment', {params: id})
+   .then((res) => {
+     //console.log(res.data)
+     setCdata(res.data)
+   })
+   .catch((err) => {
+     console.log('comment-err ' + err)
+   })
+ }
 
   const addComment = (e) => {
     e.preventDefault();
     setComments((prev) => {
       return ([...prev, {
-        id: comment.id,
-        ctitle: comment.title,
-        cusername: comment.username,
+        id:comment.id,
+        ctitle: comment.ctitle,
+        cusername: comment.cusername,
         cdepth: 1,
-        board_id: comment.id,
-      }]
+        board_id: cid,
+      }]      
     )})
 
     axios.post('/api/comment', comment)
-    console.log(comment)
     .then((res) => {
+      console.log(comment)
       console.log(res)
       setComment(res.data);
     })
@@ -39,9 +50,10 @@ function Comment({id, cdata}) {
       console.log('comment-err ' + err)
     })
     setComment({
-      title: '',
-      username: ''
+      ctitle: '',
+      cusername: ''
     })
+    e.target.reset();
   };
 
   const handleChange = (name, value) => {
@@ -59,14 +71,7 @@ function Comment({id, cdata}) {
 
  
   useEffect(() => {
-    // axios.get('/api/getcomment', {params: id})
-    // .then((res) => {
-    //   console.log(res.data)
-    //   setCdata(res.data)
-    // })
-    // .catch((err) => {
-    //   console.log('comment-err ' + err)
-    // })
+    getComment();
   },[])
 
 
@@ -78,14 +83,14 @@ function Comment({id, cdata}) {
       <form className='comment-form' onSubmit={addComment}>
         <textarea className='comment-title'
           onChange={handleInputChange}
-          name='title'
-          value={comment.title}
+          name='ctitle'
+          value={comment.ctitle}
           placeholder="댓글을 작성해 주세요"
         />
           <textarea className='comment-username'
           onChange={handleInputChange}
-          name='username'
-          value={comment.username}
+          name='cusername'
+          value={comment.cusername}
           placeholder="작성자"
         />
         <button className='comment-button' type='submit'>
@@ -93,28 +98,21 @@ function Comment({id, cdata}) {
         </button>
       </form>
       <div className='renderComment'>
-        {/* {comments.map((el, id) => {
+        {comments.map((el, id) => {
           return(
             <SingleComment comment={el} key={id} />
           )
-        })} */}
+        })}
         {/* {console.log('==========')}
         {console.log(cdata)} */}
-        {/* <div className='singleComment'>
-            <div className='singleComment-title'>{cdata[0].ctitle}</div>
-            <div className='singleComment-username'>{cdata[0].cusername}</div>
-          </div>
-          <div className='singleComment'>
-            <div className='singleComment-title'>{cdata[1].ctitle}</div>
-            <div className='singleComment-username'>{cdata[1].cusername}</div>
-          </div> */}
 
-        {cdata.map((el) => {
+      {cdata.length > 0 ? cdata.map((el) => (
           <div className='singleComment'>
             <div className='singleComment-title'>{el.ctitle}</div>
             <div className='singleComment-username'>{el.cusername}</div>
           </div>
-        })}
+        )) : '해당 게시물엔 댓글이 없습니다.' }
+        
       </div>
     </div>
    

@@ -6,10 +6,11 @@ import moment from 'moment';
 import Comment from './Comment';
 import axios from 'axios';
 import LoadingIndicator from './LoadingIndicator';
+import SingleComment from './SingleComment';
 
 function Detail({info, handleSave}) {
   const [data, setData] = useState([]);
-  const [cdata, setCdata] = useState([]);
+  // const [cdata, setCdata] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
   const [dummyData] = info.filter((el) => el.id == id)
@@ -27,20 +28,20 @@ function Detail({info, handleSave}) {
       })
   }
 
-  const getComment = async() => {
-     await axios.get('/api/getcomment', {params: id})
-    .then((res) => {
-      //console.log(res.data)
-      setCdata(res.data)
-    })
-    .catch((err) => {
-      console.log('comment-err ' + err)
-    })
-  }
+  // const getComment = async() => {
+  //    await axios.get('/api/getcomment', {params: id})
+  //   .then((res) => {
+  //     //console.log(res.data)
+  //     setCdata(res.data)
+  //   })
+  //   .catch((err) => {
+  //     console.log('comment-err ' + err)
+  //   })
+  // }
 
   useEffect(() => {
     apiDetail();
-    getComment()
+    // getComment()
   }, [])
  
 
@@ -80,25 +81,15 @@ function Detail({info, handleSave}) {
       }
     </div>
     
-    <Comment id={id} cdata={cdata}/>
+    <Comment id={id}/>
     {/* {isLoading ? <LoadingIndicator /> : <Comment id={id} cdata={cdata}/>} */}
-    {console.log(cdata)}
-    {cdata.length > 0 ? cdata.map((el) => (
-          <div className='singleComment'>
-            <div className='singleComment-title'>{el.ctitle}</div>
-            <div className='singleComment-username'>{el.cusername}</div>
-          </div>
-        )) : '해당 게시물엔 댓글이 없습니다.' }
-    {/* {cdata.map((el) => {
-          <div className='singleComment'>
-            <div className='singleComment-title'>{el.ctitle}</div>
-            <div className='singleComment-username'>{el.cusername}</div>
-          </div>
-        })} */}
+    {/* {console.log(cdata)} */}
+    {/* {cdata.length > 0 ? cdata.map((el, id) => 
+          <SingleComment comment={el} />
+        ) : '해당 게시물엔 댓글이 없습니다.' } */}
 
-        <br />
-  
-      <button className="post-view-go-list-btn" onClick={() => navigate(-1)}>목록으로 돌아가기</button>
+    <br />
+    <button className="post-view-go-list-btn" onClick={() => navigate(-1)}>목록으로 돌아가기</button>
   </>);
 }
 
