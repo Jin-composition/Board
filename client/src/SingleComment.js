@@ -3,9 +3,10 @@ import axios from 'axios';
 import './SingleComment.css'
  
 
-const SingleComment = ({comment, bid, cdata}) => { 
+const SingleComment = ({comment, bid, cdata, setCdata}) => { 
   //console.log(comment)
- 
+   console.log(setCdata)
+   const singleCdata = cdata;
   //console.log(bid)
   // const ids = [bid, reply.comments_id]
   const [index, setIndex] = useState(1)
@@ -25,12 +26,6 @@ const SingleComment = ({comment, bid, cdata}) => {
   //console.log(reply.id)
   const real = rdata.filter((el) => el.comments_id === Number(reply.comments_id));
   
-  // const handleDelete = (id) => {
-  //   //console.log(id)
-  //   setRdata(info => info.filter(el => el.id !== id));
-  //   //console.log(info)
-
-  // }
 
   const onDelete = async (e) => {
     //console.log(e.target.id)
@@ -50,8 +45,11 @@ const SingleComment = ({comment, bid, cdata}) => {
     // }
     //setRdata(info => info.filter(el => el.id !== id));
     console.log(e.target.value)
+    console.log(cdata)
     const deleteNum = e.target.value
-    setRdata(el => el.id !== deleteNum)
+    console.log(deleteNum)
+    console.log(singleCdata.filter((el) => el.id === deleteNum))
+    setCdata(cdata.filter((el) => el.id !== e.target.value))
   }
 
 

@@ -114,7 +114,7 @@ function Comment({id, handleDelete}) {
       <div className='renderComment'>
         {cdata?.length > 0 ? cdata.map((el, id) => {
           return(
-            <SingleComment comment={el} key={id} handleInputChange={handleInputChange} bid={bid} handleDelete={handleDelete} cdata={cdata}/>
+            <SingleComment comment={el} key={id} handleInputChange={handleInputChange} bid={bid} handleDelete={handleDelete} cdata={cdata} setCdata={setCdata}/>
           )
         }) : '해당 게시물엔 댓글이 없습니다.' }
         {/* {console.log('==========')}
