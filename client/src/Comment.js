@@ -23,6 +23,7 @@ function Comment({id, handleDelete}) {
 
   //console.log(comment)
 
+  
 
   //댓글 가져오는 api
   const getComment = async() => {

@@ -4,7 +4,7 @@ import './SingleComment.css'
  
 
 const SingleComment = ({comment, bid, cdata}) => { 
-  console.log(comment)
+  //console.log(comment)
  
   //console.log(bid)
   // const ids = [bid, reply.comments_id]
@@ -25,7 +25,36 @@ const SingleComment = ({comment, bid, cdata}) => {
   //console.log(reply.id)
   const real = rdata.filter((el) => el.comments_id === Number(reply.comments_id));
   
-  const ids = [bid, 1];
+  // const handleDelete = (id) => {
+  //   //console.log(id)
+  //   setRdata(info => info.filter(el => el.id !== id));
+  //   //console.log(info)
+
+  // }
+
+  const onDelete = async (e) => {
+    //console.log(e.target.id)
+    // if(window.confirm('정말 삭제 하시겠습니까?')){
+    //   alert('삭제되었습니다')
+    //   const num = Number(e.target.id)
+    //   await axios.delete('/api/comment/:id', {data: {num}})
+    //   .then((res) => {
+    //     //console.log(res)
+    //   })
+    //   .catch((err) => {
+    //     console.log("client-err"+err) 
+    //   })
+    //   handleDelete(num)
+    // }else{
+    //   alert('취소합니다')
+    // }
+    //setRdata(info => info.filter(el => el.id !== id));
+    console.log(e.target.value)
+    const deleteNum = e.target.value
+    setRdata(el => el.id !== deleteNum)
+  }
+
+
   const getReply = async() => {
     await axios.get('/api/getreply', {params: bid})
    .then((res) => {
@@ -82,7 +111,7 @@ const SingleComment = ({comment, bid, cdata}) => {
     })
   }
 
-
+  
   useEffect(() => {
     getReply();
   },[])
@@ -90,12 +119,11 @@ const SingleComment = ({comment, bid, cdata}) => {
 
   return (
     <div className='sc'>
-      
       {/* {console.log(comment.length)} */}
       {comment ?  <div className='singleComment'>
         <div className='singleComment-title'>{comment.ctitle}</div>
         <div className='singleComment-username'>{comment.cusername}</div>
-        {/* <button id={1} onClick={onDelete}>삭제</button> */}
+        <button value={comment.id} onClick={onDelete}>삭제</button>
         </div> : ''
       }
       
@@ -137,27 +165,11 @@ const SingleComment = ({comment, bid, cdata}) => {
               </div>
               )
             }else{
-              console.log('===========')
-              console.log(el)
+              // console.log('===========')
+              // console.log(el)
              
             }
          })}
-         {/* {(real.filter((el) => el.comments_id === Number(reply.comments_id))).map((el, id) => {
-            return(
-              <div className='singleComment'>
-              <div className='singleComment-title'>{el.rtitle}</div>
-              <div className='singleComment-username'>{el.rusername}</div>
-            </div>
-            )
-         })} */}
-         {/* {rdata.map((el, id) => {
-            return(
-              <div className='singleComment'>
-              <div className='singleComment-title'>{el.rtitle}</div>
-              <div className='singleComment-username'>{el.rusername}</div>
-            </div>
-            )
-         }).filter((el) => el.comments_id !== reply.comments_id)} */}
 
       </div>
       </div>

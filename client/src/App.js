@@ -44,7 +44,6 @@ function App() {
     }
   }
 
-
   
   const handleEdit = (item) => {
     const selectedData = {
