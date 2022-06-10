@@ -13,8 +13,8 @@ function Comment({id, handleDelete}) {
     ctitle: '',
     cusername: '',
     cdepth: 1,
-    cgroup: '',
-    board_id: bid,
+    cgroup: 1,
+    board_id: Number(bid),
   })
   const [comments, setComments] = useState([]);
   //댓글을 post 하고 get 했을 때 담을 배열
@@ -111,7 +111,6 @@ function Comment({id, handleDelete}) {
         </button>
       </div>
       <div className='renderComment'>
-        {cdata.length}
         {cdata?.length > 0 ? cdata.map((el, id) => {
           return(
             <SingleComment comment={el} key={id} handleInputChange={handleInputChange} bid={bid} handleDelete={handleDelete} cdata={cdata}/>

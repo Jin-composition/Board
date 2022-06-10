@@ -86,15 +86,18 @@ router.delete('/post/:id', (req, res) => {
 router.post('/comment', (req, res) => {
   console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
   console.log(req.body)
+  console.log(req.body.board_id)
   
-  const sql = 'INSERT INTO Comments (id, ctitle, cusername, cdepth, board_id) VALUES (?, ?, ?, ?, ?)';
+  
+  const sql = 'INSERT INTO Comments (id, ctitle, cusername, cdepth, cgroup, board_id) VALUES (?, ?, ?, ?, ?, ?)';
 
   const id = req.body.id;
   const ctitle = req.body.ctitle;
   const cusername = req.body.cusername;
   const cdepth = req.body.cdepth;
-  const board_id = req.body.board_id;
-  const params = [id, ctitle, cusername, cdepth, board_id];
+  const board_id = Number(req.body.board_id);
+  const cgroup = req.body.cgroup;
+  const params = [id, ctitle, cusername, cdepth, cgroup, board_id];
 
   //////추가 내용/////
   db.query(sql, params, (err, result) => {
@@ -110,7 +113,7 @@ router.get('/getcomment', (req, res) => {
   console.log(req.query['0'])
 
   const id = req.query['0']
-  const sql = 'SELECT c.id, c.ctitle, c.cusername, c.cdepth, c.cgroup, c.board_id FROM Board AS b LEFT JOIN Comments AS c ON b.id = c.board_id WHERE b.id = 10 AND board_id IS NOT null';
+  const sql = 'SELECT c.id, c.ctitle, c.cusername, c.cdepth, c.cgroup, c.board_id FROM Board AS b LEFT JOIN Comments AS c ON b.id = c.board_id WHERE b.id = ? AND board_id IS NOT null';
 
   db.query(sql, id, (err, result) => {
     if(!err) res.send(result);
@@ -160,16 +163,16 @@ router.get('/getreply', (req, res) => {
   console.log(req.query['0'])
 
   const id = req.query['0']
-  const idid = req.query['1']
-  const params = [id, idid]
+  // const idid = req.query['1']
+  // const params = [id, idid]
   const sql = `SELECT rtitle, rusername,comments_id FROM Board AS b 
   LEFT JOIN Comments AS c ON b.id = c.board_id 
   LEFT JOIN Reply AS r ON c.board_id = r.comments_id 
-  WHERE b.id = 1 GROUP BY r.id;`;
+  WHERE b.id = ? GROUP BY r.id;`;
 
-  console.log(sql)
+  //console.log(sql)
 
-  db.query(sql, (err, result) => {
+  db.query(sql, id, (err, result) => {
     if(!err) res.send(result);
     else res.send(err);
   })

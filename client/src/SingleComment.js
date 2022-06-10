@@ -3,8 +3,8 @@ import axios from 'axios';
 import './SingleComment.css'
  
 
-const SingleComment = ({comment,  bid, cdata}) => { 
-  // console.log(cdata)
+const SingleComment = ({comment, bid, cdata}) => { 
+  console.log(comment)
  
   //console.log(bid)
   // const ids = [bid, reply.comments_id]
@@ -27,7 +27,7 @@ const SingleComment = ({comment,  bid, cdata}) => {
   
   const ids = [bid, 1];
   const getReply = async() => {
-    await axios.get('/api/getreply', {params: ids})
+    await axios.get('/api/getreply', {params: bid})
    .then((res) => {
     //console.log(res.data)
     setRdata(res.data)
@@ -62,7 +62,7 @@ const SingleComment = ({comment,  bid, cdata}) => {
 
     axios.post('/api/reply', reply)
     .then((res) => {
-      // console.log(reply)
+       //console.log(reply)
       // console.log(res)
       if(res.data === 'ok'){
         //alert('ok')
@@ -96,7 +96,8 @@ const SingleComment = ({comment,  bid, cdata}) => {
         <div className='singleComment-title'>{comment.ctitle}</div>
         <div className='singleComment-username'>{comment.cusername}</div>
         {/* <button id={1} onClick={onDelete}>삭제</button> */}
-      </div> : ''}
+        </div> : ''
+      }
       
       <div className='scsc'>
         <br />
@@ -122,22 +123,26 @@ const SingleComment = ({comment,  bid, cdata}) => {
         </div>
         <div className='renderComment'>
           {/* {console.log(typeof(rdata[0].comments_id))}
-          {console.log('--------')}
           {console.log(Number(reply.comments_id))} */}
           {/* {console.log(rdata[0].comments_id === Number(reply.comments_id))} */}
           
           {/* {console.log('rdata' + rdata[0].comments_id)} */}
-          {console.log('--------')}
           {/* {console.log(real)} */}
           {real.map((el, id) => {
-            return(
-              <div className='singleComment'>
-              <div className='singleComment-title'>{el.rtitle}</div>
-              <div className='singleComment-username'>{el.rusername}</div>
-            </div>
-            )
+            if(el.comments_id === comment.id){
+              return(
+                <div key={id} className='singleComment'>
+                <div className='singleComment-title'>{el.rtitle}</div>
+                <div className='singleComment-username'>{el.rusername}</div>
+              </div>
+              )
+            }else{
+              console.log('===========')
+              console.log(el)
+             
+            }
          })}
-         {/* {(rdata.filter((el) => el.comments_id === Number(reply.comments_id))).map((el, id) => {
+         {/* {(real.filter((el) => el.comments_id === Number(reply.comments_id))).map((el, id) => {
             return(
               <div className='singleComment'>
               <div className='singleComment-title'>{el.rtitle}</div>
