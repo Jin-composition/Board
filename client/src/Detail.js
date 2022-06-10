@@ -8,13 +8,11 @@ import axios from 'axios';
 import LoadingIndicator from './LoadingIndicator';
 import SingleComment from './SingleComment';
 
-function Detail({info, handleSave}) {
+function Detail({info, handleDelete}) {
   const [data, setData] = useState([]);
-  // const [cdata, setCdata] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
   const [dummyData] = info.filter((el) => el.id == id)
-  const [isLoading, setIsLoading] = useState(false)
   // console.log(id)
 
   const apiDetail = async() => {
@@ -28,20 +26,9 @@ function Detail({info, handleSave}) {
       })
   }
 
-  // const getComment = async() => {
-  //    await axios.get('/api/getcomment', {params: id})
-  //   .then((res) => {
-  //     //console.log(res.data)
-  //     setCdata(res.data)
-  //   })
-  //   .catch((err) => {
-  //     console.log('comment-err ' + err)
-  //   })
-  // }
 
   useEffect(() => {
     apiDetail();
-    // getComment()
   }, [])
  
 
@@ -81,14 +68,13 @@ function Detail({info, handleSave}) {
       }
     </div>
     
-    <Comment id={id}/>
-    {/* {isLoading ? <LoadingIndicator /> : <Comment id={id} cdata={cdata}/>} */}
+    <Comment id={id} handleDelete={handleDelete}/>
     {/* {console.log(cdata)} */}
     {/* {cdata.length > 0 ? cdata.map((el, id) => 
           <SingleComment comment={el} />
         ) : '해당 게시물엔 댓글이 없습니다.' } */}
 
-    <br />
+    {/* <br /> */}
     <button className="post-view-go-list-btn" onClick={() => navigate(-1)}>목록으로 돌아가기</button>
   </>);
 }

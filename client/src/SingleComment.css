@@ -1,10 +1,17 @@
+.sc {
+  width: 100%;
+  border: 1px solid red;
+  padding: 10px;
+  margin-bottom: 3%;
+}
+
 .singleComment {
-  width: 98%;
+  width: 96%;
   display: flex;
   align-items: center;
   border: 1px solid gray;
   border-radius: 5px;
-  padding: 5px;
+  /* padding: 5px; */
   margin-top: 2%;
 }
 
@@ -16,4 +23,44 @@
   font-size: 0.8rem;
   margin-right: 1rem;
   color: red;
+}
+
+.scsc {
+  margin-bottom: 2%;
+  width: 98%;
+}
+.comment {
+  margin-top: 2%;
+  width:80%; 
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.comment-form{
+  display: flex;
+  width: 100%;
+}
+
+.comment-title{
+  margin-right: 1rem;
+  width: 73%;
+  resize: none;
+}
+
+.comment-username{
+  margin-right: 1rem;
+  width: 16%;
+  resize: none;
+}
+.comment-button{
+  width: 6%;
+  height: 40px; 
+}
+
+.renderComment {
+  margin-top: 5%;
+}
+
+.font {
+  font-size: 12px;
 }
