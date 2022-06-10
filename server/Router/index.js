@@ -144,18 +144,17 @@ router.post('/reply', (req, res) => {
 
 router.delete('/comment/:id', (req, res) => {
   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-  console.log(req.body.num)
+  console.log(req.body.deleteNum)
   
-  // const sql = 'DELETE FROM Board WHERE id = ?';
-  // const delete_idx = req.body.num;
-  // const params = [delete_idx]
-  // //////추가 내용/////
-  // db.query(sql, params, (err, result) => {
-  //   console.log(result);
-  //   if(!err) res.send(result);
-  //   else res.send(err);
-  // })
-  res.send('연결')
+  const sql = 'DELETE FROM Comments WHERE id = ?';
+  const delete_idx = req.body.deleteNum;
+  const params = [delete_idx]
+  //////추가 내용/////
+  db.query(sql, delete_idx, (err, result) => {
+    console.log(result);
+    if(!err) res.send(result);
+    else res.send(err);
+  })
 })
 
 router.get('/getreply', (req, res) => {

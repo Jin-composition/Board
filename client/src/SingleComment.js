@@ -4,8 +4,8 @@ import './SingleComment.css'
  
 
 const SingleComment = ({comment, bid, cdata, setCdata}) => { 
-  //console.log(comment)
-   console.log(setCdata)
+  console.log(cdata)
+  //  console.log(setCdata)
    const singleCdata = cdata;
   //console.log(bid)
   // const ids = [bid, reply.comments_id]
@@ -44,12 +44,19 @@ const SingleComment = ({comment, bid, cdata, setCdata}) => {
     //   alert('취소합니다')
     // }
     //setRdata(info => info.filter(el => el.id !== id));
-    console.log(e.target.value)
-    console.log(cdata)
-    const deleteNum = e.target.value
-    console.log(deleteNum)
-    console.log(singleCdata.filter((el) => el.id === deleteNum))
-    setCdata(cdata.filter((el) => el.id !== e.target.value))
+    // console.log(e.target.value)
+    // console.log(cdata)
+    const deleteNum = Number(e.target.value)
+    // console.log(typeof(deleteNum))
+    // console.log(singleCdata.filter((el) => el.id === deleteNum))
+    setCdata(cdata.filter((el) => el.id !== deleteNum))
+    await axios.delete('/api/comment/:id', {data: {deleteNum}})
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log("client-err"+err) 
+      })
   }
 
 
