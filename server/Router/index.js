@@ -125,14 +125,15 @@ router.post('/reply', (req, res) => {
   console.log("ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ")
   console.log(req.body)
   
-  const sql = 'INSERT INTO Reply (id, rtitle, rusername, rdepth, comments_id) VALUES (?, ?, ?, 1, ? )';
+  const sql = 'INSERT INTO Reply (id, rtitle, rusername, rdepth, comments_id, rctitle) VALUES (?, ?, ?, 1, ?, ?)';
 
   const id = req.body.id;
   const rtitle = req.body.rtitle;
   const rusername = req.body.rusername;
   const rdepth = req.body.rdepth;
-  const board_id = req.body.board_id;
-  const params = [id, rtitle, rusername, rdepth, board_id];
+  const comments_id = req.body.comments_id;
+  const rctitle = req.body.ctitle;
+  const params = [id, rtitle, rusername, rdepth, comments_id, rctitle];
 
   //////추가 내용/////
   db.query(sql, params, (err, result) => {
@@ -164,7 +165,7 @@ router.get('/getreply', (req, res) => {
   const id = req.query['0']
   // const idid = req.query['1']
   // const params = [id, idid]
-  const sql = `SELECT rtitle, rusername,comments_id FROM Board AS b 
+  const sql = `SELECT rtitle, rusername,comments_id, ctitle FROM Board AS b 
   LEFT JOIN Comments AS c ON b.id = c.board_id 
   LEFT JOIN Reply AS r ON c.board_id = r.comments_id 
   WHERE b.id = ? GROUP BY r.id;`;

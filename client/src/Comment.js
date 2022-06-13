@@ -21,10 +21,6 @@ function Comment({id, handleDelete}) {
   const [cdata, setCdata] = useState([]);
 
 
-  //console.log(comment)
-
-  
-
   //댓글 가져오는 api
   const getComment = async() => {
     await axios.get('/api/getcomment', {params: id})
@@ -81,7 +77,7 @@ function Comment({id, handleDelete}) {
       id: num+1,
       [name]: value,
     }));
-    //console.log(name, value)
+    // console.log(name, value)
   };
 
  
@@ -113,6 +109,7 @@ function Comment({id, handleDelete}) {
       </div>
       <div className='renderComment'>
         {cdata?.length > 0 ? cdata.map((el, id) => {
+          console.log(cdata.id)
           return(
             <SingleComment comment={el} key={id} handleInputChange={handleInputChange} bid={bid} handleDelete={handleDelete} cdata={cdata} setCdata={setCdata}/>
           )

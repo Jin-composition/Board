@@ -4,7 +4,7 @@ import './SingleComment.css'
  
 
 const SingleComment = ({comment, bid, cdata, setCdata}) => { 
-  console.log(cdata)
+  //console.log(cdata)
   //  console.log(setCdata)
    const singleCdata = cdata;
   //console.log(bid)
@@ -15,7 +15,7 @@ const SingleComment = ({comment, bid, cdata, setCdata}) => {
     rtitle: '',
     rusername: '',
     rdepth: 1,
-    comments_id: bid,
+    comments_id: cdata.id,
   })
 
  
@@ -23,9 +23,8 @@ const SingleComment = ({comment, bid, cdata, setCdata}) => {
   //대댓글을 post 하고 get 했을 때 담을 배열
   const [rdata, setRdata] = useState([]);
   
-  //console.log(reply.id)
   const real = rdata.filter((el) => el.comments_id === Number(reply.comments_id));
-  
+
 
   const onDelete = async (e) => {
     //console.log(e.target.id)
@@ -61,7 +60,8 @@ const SingleComment = ({comment, bid, cdata, setCdata}) => {
 
 
   const getReply = async() => {
-    await axios.get('/api/getreply', {params: bid})
+    //console.log(comment.id)
+    await axios.get('/api/getreply', {params: comment.id})
    .then((res) => {
     //console.log(res.data)
     setRdata(res.data)
@@ -79,9 +79,12 @@ const SingleComment = ({comment, bid, cdata, setCdata}) => {
     setReply((prevValues) => ({
       ...prevValues,
       id: num+1,
+      ctitle: comment.ctitle,
+      comments_id:comment.id,
       [name]: value,
     }));
     // console.log(name, value)
+    // console.log(reply)
   };
 
 
@@ -96,7 +99,7 @@ const SingleComment = ({comment, bid, cdata, setCdata}) => {
 
     axios.post('/api/reply', reply)
     .then((res) => {
-       //console.log(reply)
+       console.log(reply)
       // console.log(res)
       if(res.data === 'ok'){
         //alert('ok')
@@ -162,6 +165,10 @@ const SingleComment = ({comment, bid, cdata, setCdata}) => {
           {/* {console.log('rdata' + rdata[0].comments_id)} */}
           {/* {console.log(real)} */}
           {real.map((el, id) => {
+            // console.log(real)
+            //console.log(el)
+            // console.log(cdata)
+            //console.log(comment)
             if(el.comments_id === comment.id){
               return(
                 <div key={id} className='singleComment'>
