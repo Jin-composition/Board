@@ -1,11 +1,10 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import './Detail.css';
+import './css/Detail.css';
 import moment from 'moment';
 import Comment from './Comment';
 import axios from 'axios';
-import LoadingIndicator from './LoadingIndicator';
 import SingleComment from './SingleComment';
 
 function Detail({info, handleDelete}) {

@@ -11,8 +11,9 @@
 }
 
 .comment-title{
+  margin-left: 1rem;
   margin-right: 1rem;
-  width: 73%;
+  width: 70%;
   resize: none;
 }
 

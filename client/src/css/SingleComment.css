@@ -1,17 +1,18 @@
 .sc {
   width: 100%;
-  border: 1px solid red;
   padding: 10px;
   margin-bottom: 3%;
+  border: 1px solid gray;
+  border-radius: 5px;
 }
 
 .singleComment {
   width: 96%;
   display: flex;
   align-items: center;
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   border-radius: 5px;
-  /* padding: 5px; */
+  padding: 5px;
   margin-top: 2%;
 }
 
@@ -25,9 +26,13 @@
   color: red;
 }
 
+.singleComment-1 {
+  width: 10%;
+  text-align: right;
+}
 .scsc {
   margin-bottom: 2%;
-  width: 98%;
+  width: 100%;
 }
 .comment {
   margin-top: 2%;
@@ -41,9 +46,10 @@
   width: 100%;
 }
 
+
 .comment-title{
   margin-right: 1rem;
-  width: 73%;
+  width: 70%;
   resize: none;
 }
 
@@ -63,4 +69,8 @@
 
 .font {
   font-size: 12px;
+}
+
+.upBtn{
+  margin-right: 5px;
 }

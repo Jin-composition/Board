@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Board.css';
+import './css/Board.css';
 import AddBoard from './AddBoard';
 import { Link } from 'react-router-dom';
 import moment from 'moment';

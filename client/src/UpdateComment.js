@@ -4,9 +4,10 @@ import UpdateTitle from './UpdateTitle';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import FileInput from './FileInput';
 
-const UpdateBoard = ({info, selected, handleEdit, handleEditSubmit}) => {
+import CommentInput from './CommentInput';
+
+const UpdateComment = ({info, selected, handleEdit, handleEditSubmit}) => {
   const { id } = useParams();
   const [dummyData] = info.filter((el) => el.id == id)
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const UpdateBoard = ({info, selected, handleEdit, handleEditSubmit}) => {
    axios.put('/api/update', edited)
     .then((res) => {
 
-      console.log(res.data)
+      console.log(res)
     })
     .catch((err) => {
       console.log("onSubmitEdit-err "+err)   
@@ -61,29 +62,11 @@ const UpdateBoard = ({info, selected, handleEdit, handleEditSubmit}) => {
   return (
     <>
     <UpdateTitle />
-    <div className='form_box'>
-        <form onSubmit={onSubmitEdit}>
-          <FileInput  name="imgFile" value={inputs.imgFile} />
-          <label>
-            <input type="text" className="title_input" placeholder='제목을 입력해주세요' onChange={onEditChange} name='title' defaultValue={inputs.title} ></input>
-          </label>
-          <br />
-          <label>
-            <input type="text" className="name_input" placeholder='이름을 입력해주세요' onChange={onEditChange} name='username' defaultValue={inputs.username} ></input>
-          </label>
-          <label>
-            <textarea className='content_input' placeholder='내용을 입력해주세요' onChange={onEditChange} name='content' defaultValue={inputs.content} ></textarea>
-          </label>
-          <br />
-          <button className="write_button" onClick={onEdit}>수정하기</button>
-        </form>
-    </div>
-    
-      <button className="post-view-go-list-btn" onClick={() => navigate(-1)}>목록으로 돌아가기</button>
+    <CommentInput />
     </>
   )
 
 }
 
-export default UpdateBoard;
+export default UpdateComment;
 

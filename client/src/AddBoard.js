@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import './AddBoard.css';
+import './css/AddBoard.css';
 import FileInput from './FileInput';
 
 

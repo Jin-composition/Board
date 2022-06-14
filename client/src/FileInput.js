@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import placeholderImg from './preview.png';
 import resetImg from './ic-reset.png';
-import './FileInput.css';
+import './css/FileInput.css';
 
 function FileInput({ className = '', name, value, initialPreview, onChange }) {
   const [preview, setPreview] = useState(initialPreview);

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import './Comment.css';
+import './css/Comment.css';
 import SingleComment from './SingleComment';
-
+import CommentInput from './CommentInput';
 
 function Comment({id, handleDelete}) {
   const bid = id
@@ -90,28 +90,12 @@ function Comment({id, handleDelete}) {
       <br />
       <p>댓글</p>
       <hr />
-      <div className='comment-form' >
-        <textarea className='comment-title'
-          onChange={handleInputChange}
-          name='ctitle'
-          value={comment.ctitle}
-          placeholder="댓글을 작성해 주세요"
-        />
-          <input className='comment-username'
-          onChange={handleInputChange}
-          name='cusername'
-          value={comment.cusername}
-          placeholder="작성자"
-        />
-        <button className='comment-button' type='submit' onClick={() => addComment()}>
-          게시
-        </button>
-      </div>
+      <CommentInput handleInputChange={handleInputChange} comment={comment} addComment={addComment}/>
       <div className='renderComment'>
         {cdata?.length > 0 ? cdata.map((el, id) => {
-          console.log(cdata.id)
+          //console.log(cdata.id)
           return(
-            <SingleComment comment={el} key={id} handleInputChange={handleInputChange} bid={bid} handleDelete={handleDelete} cdata={cdata} setCdata={setCdata}/>
+            <SingleComment comment={el} key={id} handleInputChange={handleInputChange} bid={bid} handleDelete={handleDelete} cdata={cdata} setCdata={setCdata} getComment={getComment} />
           )
         }) : '해당 게시물엔 댓글이 없습니다.' }
         {/* {console.log('==========')}

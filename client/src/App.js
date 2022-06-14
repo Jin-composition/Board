@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-import './App.css';
+import './css/App.css';
 import Board from './Board';
 import Detail from './Detail';
 import UpdateBoard from './UpdateBoard';
